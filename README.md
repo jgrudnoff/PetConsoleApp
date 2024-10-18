@@ -1,8 +1,11 @@
 # PetApp
 To ensure that the application is fit for enterprise, I would undertake the following steps:
+
 I would use the existing logging system in the codebase (e.g., Log4j, Winston, or any proprietary solutions), ensuring that the system captures detailed logs of application activities, including errors, warnings, and key events. The logging should be granular enough to support troubleshooting, monitoring, and auditing of the application. I would ensure that all critical transactions, API calls, and background processes are logged appropriately.
+
 I would include support for API authentication using industry-standard methods like OAuth2, JWT (JSON Web Tokens), or API keys, depending on the service requirements.
-Containerizing the application using Docker
+
+I would containerize the application using Docker is appropriate
 
 ============================================================================================================================================================================================================================================================================
 

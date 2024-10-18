@@ -9,7 +9,7 @@ I would containerize the application using Docker is appropriate
 
 ============================================================================================================================================================================================================================================================================
 
-ChatGPT Transscript
+ChatGPT Transcript
 
 This was done using a GPT with the master prompt/instructions of:
 

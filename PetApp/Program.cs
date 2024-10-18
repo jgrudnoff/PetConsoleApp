@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PetApp.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,9 +14,10 @@ namespace PetApp
         {
             try
             {
-                IPetRetreivalService petService = new PetRetreivalService();
+                IPetRetreivalService petService = new PetRetrievalService();
                 PetConsolePrintingService petPrintingService = new PetConsolePrintingService(petService);
-                await petPrintingService.PrintPetsByStatusAsync(PetStatus.Available);
+                List<PetStatus> statusList = new List<PetStatus>() { PetStatus.Available };
+                await petPrintingService.PrintPetsByStatusAsync(statusList);
             } catch (Exception ex) { 
                 Console.WriteLine(ex.Message);
             } finally

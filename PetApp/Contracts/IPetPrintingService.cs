@@ -1,7 +1,8 @@
 ﻿using PetApp.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 public interface IPetPrintingService
 {
-    Task PrintPetsByStatusAsync(PetStatus status);
+    Task PrintPetsByStatusAsync(List<PetStatus> status);
 }

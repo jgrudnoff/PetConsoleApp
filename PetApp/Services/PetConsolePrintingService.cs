@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using PetApp.Models;
+using System.Reflection;
 
 public class PetConsolePrintingService : IPetPrintingService
 {
@@ -33,6 +34,8 @@ public class PetConsolePrintingService : IPetPrintingService
         {
             Console.WriteLine($"Category: {group.Key}");
 
+            var pets = group.Value;
+            var lastId = pets.Last().Id;
             foreach (var pet in group.Value)
             {
                 Console.WriteLine($"  Pet ID: {pet.Id}");
@@ -52,16 +55,18 @@ public class PetConsolePrintingService : IPetPrintingService
                 {
                     Console.WriteLine("  Tags: No tags available.");
                 }
-                Console.WriteLine(new string('-', 40)); // Separator for better readability
+                if (!pet.Id.Equals(lastId))
+                    Console.WriteLine(new string('-', 40)); // Separator for better readability
             }
+            Console.WriteLine(new string('=', 80)); // Separator for better readability
         }
     }
 
     // Main method that fetches pets, groups, sorts, and then prints them
-    public async Task<Dictionary<string, List<Pet>>> FetchAndGroupPetsByStatusAsync(PetStatus status)
+    public async Task<Dictionary<string, List<Pet>>> FetchAndGroupPetsByStatusAsync(List<PetStatus> statusList)
     {
         // Fetch pets based on status
-        List<Pet> pets = await _petService.FindByStatusAsync(status);
+        List<Pet> pets = await _petService.FindByStatusAsync(statusList);
 
         // If there are no pets, return an empty dictionary
         if (pets.Count == 0)
@@ -74,10 +79,10 @@ public class PetConsolePrintingService : IPetPrintingService
     }
 
     // Implementation of PrintPetsByStatusAsync from IPetPrintingService
-    public async Task PrintPetsByStatusAsync(PetStatus status)
+    public async Task PrintPetsByStatusAsync(List<PetStatus> statusList)
     {
         // Fetch and group pets
-        var groupedPets = await FetchAndGroupPetsByStatusAsync(status);
+        var groupedPets = await FetchAndGroupPetsByStatusAsync(statusList);
 
         // If there are no pets, print a message
         if (groupedPets.Count == 0)

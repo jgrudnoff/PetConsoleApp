@@ -33,11 +33,11 @@ public class PetPrintingServiceTests
             new Pet { Id = 5, Name = "Rex", Category = null, Status = "available" } // No Category
         };
 
-        _mockPetService.Setup(s => s.FindByStatusAsync(PetStatus.Available))
+        _mockPetService.Setup(s => s.FindByStatusAsync(new List<PetStatus>() { PetStatus.Available }))
             .ReturnsAsync(pets);
 
         // Act: Call the method that groups and sorts the pets
-        var groupedPets = await _petPrintingService.FetchAndGroupPetsByStatusAsync(PetStatus.Available);
+        var groupedPets = await _petPrintingService.FetchAndGroupPetsByStatusAsync(new List<PetStatus>() { PetStatus.Available });
 
         // Assert
         Assert.AreEqual(3, groupedPets.Count);  // 3 groups: "Dogs", "Cats", "No Category"
@@ -65,11 +65,11 @@ public class PetPrintingServiceTests
     public async Task FetchAndGroupPetsByStatusAsync_ShouldHandleEmptyList()
     {
         // Arrange: Set up the mock IPetService to return an empty list of pets
-        _mockPetService.Setup(s => s.FindByStatusAsync(PetStatus.Available))
+        _mockPetService.Setup(s => s.FindByStatusAsync(new List<PetStatus>() { PetStatus.Available }))
             .ReturnsAsync(new List<Pet>());
 
         // Act
-        var groupedPets = await _petPrintingService.FetchAndGroupPetsByStatusAsync(PetStatus.Available);
+        var groupedPets = await _petPrintingService.FetchAndGroupPetsByStatusAsync(new List<PetStatus>() { PetStatus.Available });
 
         // Assert
         Assert.AreEqual(0, groupedPets.Count); // No groups should be returned
@@ -85,11 +85,11 @@ public class PetPrintingServiceTests
             new Pet { Id = 2, Name = "Luna", Category = null, Status = "available" }
         };
 
-        _mockPetService.Setup(s => s.FindByStatusAsync(PetStatus.Available))
+        _mockPetService.Setup(s => s.FindByStatusAsync(new List<PetStatus>() { PetStatus.Available }))
             .ReturnsAsync(pets);
 
         // Act
-        var groupedPets = await _petPrintingService.FetchAndGroupPetsByStatusAsync(PetStatus.Available);
+        var groupedPets = await _petPrintingService.FetchAndGroupPetsByStatusAsync(new List<PetStatus>() { PetStatus.Available });
 
         // Assert
         Assert.AreEqual(1, groupedPets.Count); // Only one group, "No Category"
